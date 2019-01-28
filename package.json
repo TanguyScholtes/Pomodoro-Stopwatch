@@ -1,0 +1,32 @@
+{
+  "name": "pomodoro-stopwatch",
+  "version": "0.0.1",
+  "description": "A Pomodoro timer using React & Node - Part of Becode studentship",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TanguyScholtes/Pomodoro-Stopwatch.git"
+  },
+  "keywords": [
+    "node",
+    "pomodoro",
+    "stopwatch",
+    "react"
+  ],
+  "author": "Tanguy Scholtes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TanguyScholtes/Pomodoro-Stopwatch/issues"
+  },
+  "homepage": "https://github.com/TanguyScholtes/Pomodoro-Stopwatch#readme",
+  "dependencies": {
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-scripts": "^2.1.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  }
+}
