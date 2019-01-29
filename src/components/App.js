@@ -1,72 +1,152 @@
 const React = require( 'react' );
 import Clock from './Clock.js';
 import Modal from './Modal.js';
+import Break from './Break.js';
 
 class App extends React.Component {
     constructor ( props ) {
         super( props );
         this.state = {
-            timerclock: null, // interval
-            currentTime: 600, // Time in seconds
+            timerclock: null, // timer interval
+            currentTime: 600, // Timer in seconds
             lastTimer: 600, // Last timer entered by user, in seconds
             running: false, // Is the clock ticking or paused
             step: 60, // Step to increase/decrease timer, in seconds
             toggleText: 'Start', // Text to display on toggle button
+            waitingTime: 0, // Break time in seconds
+            waitingclock: null // break interval
         };
     }
 
     clockTick () {
-        this.state.currentTime--;
+        if ( this.state.currentTime <= 0 ) {
+            this.setState( {
+                currentTime: 0,
+                running: false,
+                toggleText: 'Start',
+            } );
+            clearInterval( this.state.timerclock );
+        } else {
+            this.setState( {
+                currentTime: this.state.currentTime - 1
+            } );
+        }
+        return;
+    }
+
+    waitingTick () {
+        if ( this.state.waitingTime <= 1 ) {
+            this.setState( {
+                waitingTime: 0,
+            } );
+            clearInterval( this.state.waitingclock );
+            this.reset();
+        } else {
+            this.setState( {
+                waitingTime: this.state.waitingTime - 1
+            } );
+        }
+        return;
+    }
+
+    increaseTimer () {
+        if ( this.state.running === false ) {
+            this.setState( {
+                currentTime: this.state.currentTime + this.state.step,
+                lastTimer: this.state.currentTime + this.state.step
+            } );
+        }
+        return;
+    }
+
+    decreaseTimer () {
+        if ( this.state.running === false ) {
+            this.setState( {
+                currentTime: this.state.currentTime - this.state.step,
+                lastTimer: this.state.currentTime - this.state.step
+            } );
+        }
         return;
     }
 
     toggle () {
         if ( this.state.running === true ) {
-            this.state.running = false;
-            this.state.toggleText = 'Start';
+            this.setState( {
+                running: false,
+                toggleText: 'Start'
+            } );
             clearInterval( this.state.timerclock );
 
         } else {
-            this.state.running = true;
-            this.state.toggleText = 'Stop';
-            this.state.timerclock = setInterval(
-                () => this.clockTick(),
-                1000
-            );
+            this.setState( {
+                running: true,
+                toggleText: 'Stop',
+                timerclock: setInterval(
+                    () => this.clockTick(),
+                    1000
+                )
+            } );
         }
         return;
     }
 
     reset () {
-        this.toggle();
-        this.state.currentTime = this.state.lastTimer;
+        this.setState( {
+            running: false,
+            toggleText: 'Start',
+            currentTime: this.state.lastTimer,
+            waitingTime: 0
+        } );
+        clearInterval( this.state.timerclock );
         return;
     }
 
     dismiss () {
-        this.toggle();
-        this.state.currentTime = this.state.lastTimer = 600;
+        this.setState( {
+            currentTime: 600,
+            lastTimer: 600,
+            waitingTime: 0
+        } );
+        return;
+    }
+
+    break ( event, duration ) {
+        event.preventDefault();
+        this.setState( {
+            waitingTime: duration,
+            waitingclock: setInterval(
+                () => this.waitingTick(),
+                1000
+            )
+        } );
         return;
     }
 
     render () {
-        if ( this.state.currentTime != 0 ) {
+        if ( this.state.currentTime != 0 && this.state.waitingTime === 0 ) {
             return (
                 <Clock
-                    step={ this.state.step }
-                    running={ this.state.running }
-                    lastTimer={ this.state.lastTimer }
                     currentTime={ this.state.currentTime }
                     toggle={ () => this.toggle() }
                     reset={ () => this.reset() }
                     toggleText={ this.state.toggleText }
+                    increaseTimer={ () => this.increaseTimer() }
+                    decreaseTimer={ () => this.decreaseTimer() }
+                />
+            );
+        } else if ( this.state.waitingTime != 0 ) {
+            return (
+                <Break
+                    waitingTime={ this.state.waitingTime }
+                    reset={ () => this.reset() }
                 />
             );
         } else {
             return (
                 <Modal
-                    reset={ this.reset() }
-                    dismiss={ this.dismiss() }
+                    reset={ () => this.reset() }
+                    dismiss={ () => this.dismiss() }
+                    break={ ( event, duration ) => this.break( event, duration ) }
                 />
             );
         }

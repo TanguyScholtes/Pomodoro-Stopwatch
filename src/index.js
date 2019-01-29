@@ -6,11 +6,11 @@ import App from './components/App.js';
 import Branding from './components/Branding.js';
 
 ReactDOM.render(
-    <App />,
-    document.getElementById('app')
+    <Branding />,
+    document.getElementById('brand')
 );
 
 ReactDOM.render(
-    <Branding />,
-    document.getElementById('brand')
+    <App />,
+    document.getElementById('app')
 );

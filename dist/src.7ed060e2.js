@@ -24587,17 +24587,10 @@ var Clock =
 function (_React$Component) {
   _inherits(Clock, _React$Component);
 
-  function Clock(props) {
-    var _this;
-
+  function Clock() {
     _classCallCheck(this, Clock);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Clock).call(this, props));
-    _this.state = {
-      currentTime: _this.props.currentTime,
-      lastTimer: _this.props.lastTimer
-    };
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(Clock).apply(this, arguments));
   }
 
   _createClass(Clock, [{
@@ -24617,29 +24610,9 @@ function (_React$Component) {
       return min + ' : ' + sec;
     }
   }, {
-    key: "increaseTimer",
-    value: function increaseTimer() {
-      if (this.props.running === false) {
-        this.props.currentTime += this.props.step;
-        this.props.lastTimer = this.props.currentTime;
-      }
-
-      return;
-    }
-  }, {
-    key: "decreaseTimer",
-    value: function decreaseTimer() {
-      if (this.props.running === false) {
-        this.props.currentTime -= this.props.step;
-        this.props.lastTimer = this.props.currentTime;
-      }
-
-      return;
-    }
-  }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this = this;
 
       return React.createElement("div", {
         className: "container"
@@ -24650,19 +24623,23 @@ function (_React$Component) {
       }, this.secondsToTimer(this.props.currentTime)), React.createElement("button", {
         className: "clock-modifier",
         onClick: function onClick() {
-          return _this2.increaseTimer();
+          return _this.props.increaseTimer();
         }
       }, "+"), React.createElement("button", {
         className: "clock-modifier",
         onClick: function onClick() {
-          return _this2.decreaseTimer();
+          return _this.props.decreaseTimer();
         }
       }, "-")), React.createElement("div", {
         className: "clock-interface"
       }, React.createElement("button", {
-        onClick: this.props.toggle
+        onClick: function onClick() {
+          return _this.props.toggle();
+        }
       }, this.props.toggleText), React.createElement("button", {
-        onClick: this.props.reset
+        onClick: function onClick() {
+          return _this.props.reset();
+        }
       }, "Reset")));
     }
   }]);
@@ -24714,17 +24691,40 @@ function (_React$Component) {
   _createClass(Modal, [{
     key: "render",
     value: function render() {
+      var _this = this;
+
       return React.createElement("div", {
         className: "container"
       }, React.createElement("div", {
         className: "modal"
-      }, React.createElement("p", null, "Time's up ! Take a break !"), React.createElement("div", {
+      }, React.createElement("p", null, "Time's up ! Take a break : leave your seat and go get some fresh air."), React.createElement("div", {
         className: "modal-interface"
       }, React.createElement("button", {
-        onClick: this.props.reset
+        onClick: function onClick() {
+          return _this.props.reset();
+        }
       }, "Restart"), React.createElement("button", {
-        onClick: this.props.dismiss
-      }, "Dismiss"))));
+        onClick: function onClick() {
+          return _this.props.dismiss();
+        }
+      }, "Dismiss")), React.createElement("div", {
+        className: "modal-interface"
+      }, React.createElement("p", null, "In a hurry ? ", React.createElement("a", {
+        href: "",
+        onClick: function onClick(event) {
+          return _this.props.break(event, 10);
+        }
+      }, "Take a deep breath and start again in 10 seconds.")), React.createElement("p", null, "Want to take a short break ? ", React.createElement("a", {
+        href: "",
+        onClick: function onClick(event) {
+          return _this.props.break(event, 300);
+        }
+      }, "Click here to start a new timer in 5 minutes.")), React.createElement("p", null, "A longer break in sight ? ", React.createElement("a", {
+        href: "",
+        onClick: function onClick(event) {
+          return _this.props.break(event, 1800);
+        }
+      }, "Click here to start a new timer in 30 minutes.")))));
     }
   }]);
 
@@ -24732,6 +24732,87 @@ function (_React$Component) {
 }(React.Component);
 
 var _default = Modal;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"../src/components/Break.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var React = require('react');
+
+var Break =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Break, _React$Component);
+
+  function Break() {
+    _classCallCheck(this, Break);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Break).apply(this, arguments));
+  }
+
+  _createClass(Break, [{
+    key: "secondsToTimer",
+    value: function secondsToTimer(seconds) {
+      var min = parseInt(Math.floor(seconds % 3600 / 60));
+      var sec = parseInt(Math.floor(seconds % 3600 % 60));
+
+      if (sec <= 9) {
+        sec = '0' + sec;
+      }
+
+      if (min <= 9) {
+        min = '0' + min;
+      }
+
+      return min + ' : ' + sec;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      return React.createElement("div", {
+        className: "container"
+      }, React.createElement("div", {
+        className: "clock"
+      }, React.createElement("p", null, "Enjoy your break. A new timer will automatically start in..."), React.createElement("p", {
+        className: "clock-timer"
+      }, this.secondsToTimer(this.props.waitingTime))), React.createElement("div", {
+        className: "clock-interface"
+      }, React.createElement("button", {
+        onClick: function onClick() {
+          return _this.props.reset();
+        }
+      }, "End break")));
+    }
+  }]);
+
+  return Break;
+}(React.Component);
+
+var _default = Break;
 exports.default = _default;
 },{"react":"../node_modules/react/index.js"}],"../src/components/App.js":[function(require,module,exports) {
 "use strict";
@@ -24744,6 +24825,8 @@ exports.default = void 0;
 var _Clock = _interopRequireDefault(require("./Clock.js"));
 
 var _Modal = _interopRequireDefault(require("./Modal.js"));
+
+var _Break = _interopRequireDefault(require("./Break.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24780,16 +24863,20 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(App).call(this, props));
     _this.state = {
       timerclock: null,
-      // interval
+      // timer interval
       currentTime: 600,
-      // Time in seconds
+      // Timer in seconds
       lastTimer: 600,
       // Last timer entered by user, in seconds
       running: false,
       // Is the clock ticking or paused
       step: 60,
       // Step to increase/decrease timer, in seconds
-      toggleText: 'Start' // Text to display on toggle button
+      toggleText: 'Start',
+      // Text to display on toggle button
+      waitingTime: 0,
+      // Break time in seconds
+      waitingclock: null // break interval
 
     };
     return _this;
@@ -24798,7 +24885,60 @@ function (_React$Component) {
   _createClass(App, [{
     key: "clockTick",
     value: function clockTick() {
-      this.state.currentTime--;
+      if (this.state.currentTime <= 0) {
+        this.setState({
+          currentTime: 0,
+          running: false,
+          toggleText: 'Start'
+        });
+        clearInterval(this.state.timerclock);
+      } else {
+        this.setState({
+          currentTime: this.state.currentTime - 1
+        });
+      }
+
+      return;
+    }
+  }, {
+    key: "waitingTick",
+    value: function waitingTick() {
+      if (this.state.waitingTime <= 1) {
+        this.setState({
+          waitingTime: 0
+        });
+        clearInterval(this.state.waitingclock);
+        this.reset();
+      } else {
+        this.setState({
+          waitingTime: this.state.waitingTime - 1
+        });
+      }
+
+      return;
+    }
+  }, {
+    key: "increaseTimer",
+    value: function increaseTimer() {
+      if (this.state.running === false) {
+        this.setState({
+          currentTime: this.state.currentTime + this.state.step,
+          lastTimer: this.state.currentTime + this.state.step
+        });
+      }
+
+      return;
+    }
+  }, {
+    key: "decreaseTimer",
+    value: function decreaseTimer() {
+      if (this.state.running === false) {
+        this.setState({
+          currentTime: this.state.currentTime - this.state.step,
+          lastTimer: this.state.currentTime - this.state.step
+        });
+      }
+
       return;
     }
   }, {
@@ -24807,15 +24947,19 @@ function (_React$Component) {
       var _this2 = this;
 
       if (this.state.running === true) {
-        this.state.running = false;
-        this.state.toggleText = 'Start';
+        this.setState({
+          running: false,
+          toggleText: 'Start'
+        });
         clearInterval(this.state.timerclock);
       } else {
-        this.state.running = true;
-        this.state.toggleText = 'Stop';
-        this.state.timerclock = setInterval(function () {
-          return _this2.clockTick();
-        }, 1000);
+        this.setState({
+          running: true,
+          toggleText: 'Stop',
+          timerclock: setInterval(function () {
+            return _this2.clockTick();
+          }, 1000)
+        });
       }
 
       return;
@@ -24823,40 +24967,79 @@ function (_React$Component) {
   }, {
     key: "reset",
     value: function reset() {
-      this.toggle();
-      this.state.currentTime = this.state.lastTimer;
+      this.setState({
+        running: false,
+        toggleText: 'Start',
+        currentTime: this.state.lastTimer,
+        waitingTime: 0
+      });
+      clearInterval(this.state.timerclock);
       return;
     }
   }, {
     key: "dismiss",
     value: function dismiss() {
-      this.toggle();
-      this.state.currentTime = this.state.lastTimer = 600;
+      this.setState({
+        currentTime: 600,
+        lastTimer: 600,
+        waitingTime: 0
+      });
+      return;
+    }
+  }, {
+    key: "break",
+    value: function _break(event, duration) {
+      var _this3 = this;
+
+      event.preventDefault();
+      this.setState({
+        waitingTime: duration,
+        waitingclock: setInterval(function () {
+          return _this3.waitingTick();
+        }, 1000)
+      });
       return;
     }
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
-      if (this.state.currentTime != 0) {
+      if (this.state.currentTime != 0 && this.state.waitingTime === 0) {
         return React.createElement(_Clock.default, {
-          step: this.state.step,
-          running: this.state.running,
-          lastTimer: this.state.lastTimer,
           currentTime: this.state.currentTime,
           toggle: function toggle() {
-            return _this3.toggle();
+            return _this4.toggle();
           },
           reset: function reset() {
-            return _this3.reset();
+            return _this4.reset();
           },
-          toggleText: this.state.toggleText
+          toggleText: this.state.toggleText,
+          increaseTimer: function increaseTimer() {
+            return _this4.increaseTimer();
+          },
+          decreaseTimer: function decreaseTimer() {
+            return _this4.decreaseTimer();
+          }
+        });
+      } else if (this.state.waitingTime != 0) {
+        return React.createElement(_Break.default, {
+          waitingTime: this.state.waitingTime,
+          reset: function reset() {
+            return _this4.reset();
+          }
         });
       } else {
         return React.createElement(_Modal.default, {
-          reset: this.reset(),
-          dismiss: this.dismiss()
+          reset: function reset() {
+            return _this4.reset();
+          },
+          dismiss: function dismiss() {
+            return _this4.dismiss();
+          },
+          "break": function _break(event, duration) {
+            return _this4.break(event, duration);
+          }
         });
       }
     }
@@ -24867,7 +25050,7 @@ function (_React$Component) {
 
 var _default = App;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./Clock.js":"../src/components/Clock.js","./Modal.js":"../src/components/Modal.js"}],"../src/components/Branding.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./Clock.js":"../src/components/Clock.js","./Modal.js":"../src/components/Modal.js","./Break.js":"../src/components/Break.js"}],"../src/components/Branding.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24937,8 +25120,8 @@ var React = require('react');
 
 var ReactDOM = require('react-dom');
 
-ReactDOM.render(React.createElement(_App.default, null), document.getElementById('app'));
 ReactDOM.render(React.createElement(_Branding.default, null), document.getElementById('brand'));
+ReactDOM.render(React.createElement(_App.default, null), document.getElementById('app'));
 },{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","../scss/styles.scss":"../scss/styles.scss","./components/App.js":"../src/components/App.js","./components/Branding.js":"../src/components/Branding.js"}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -24966,7 +25149,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54562" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55834" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
