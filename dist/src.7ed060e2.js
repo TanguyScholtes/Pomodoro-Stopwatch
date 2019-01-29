@@ -24636,11 +24636,7 @@ function (_React$Component) {
         onClick: function onClick() {
           return _this.props.toggle();
         }
-      }, this.props.toggleText), React.createElement("button", {
-        onClick: function onClick() {
-          return _this.props.reset();
-        }
-      }, "Reset")));
+      }, this.props.toggleText)));
     }
   }]);
 
@@ -24947,15 +24943,11 @@ function (_React$Component) {
       var _this2 = this;
 
       if (this.state.running === true) {
-        this.setState({
-          running: false,
-          toggleText: 'Start'
-        });
-        clearInterval(this.state.timerclock);
+        this.reset();
       } else {
         this.setState({
           running: true,
-          toggleText: 'Stop',
+          toggleText: 'Reset',
           timerclock: setInterval(function () {
             return _this2.clockTick();
           }, 1000)
@@ -25010,9 +25002,6 @@ function (_React$Component) {
           currentTime: this.state.currentTime,
           toggle: function toggle() {
             return _this4.toggle();
-          },
-          reset: function reset() {
-            return _this4.reset();
           },
           toggleText: this.state.toggleText,
           increaseTimer: function increaseTimer() {
@@ -25149,7 +25138,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55834" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56257" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

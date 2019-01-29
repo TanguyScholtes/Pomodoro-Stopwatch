@@ -25,7 +25,6 @@ class Clock extends React.Component {
                 </div>
                 <div className="clock-interface">
                     <button onClick={ () => this.props.toggle() }>{ this.props.toggleText }</button>
-                    <button onClick={ () => this.props.reset() }>Reset</button>
                 </div>
             </div>
         );

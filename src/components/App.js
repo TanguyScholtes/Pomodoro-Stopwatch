@@ -71,16 +71,11 @@ class App extends React.Component {
 
     toggle () {
         if ( this.state.running === true ) {
-            this.setState( {
-                running: false,
-                toggleText: 'Start'
-            } );
-            clearInterval( this.state.timerclock );
-
+            this.reset();
         } else {
             this.setState( {
                 running: true,
-                toggleText: 'Stop',
+                toggleText: 'Reset',
                 timerclock: setInterval(
                     () => this.clockTick(),
                     1000
@@ -128,7 +123,6 @@ class App extends React.Component {
                 <Clock
                     currentTime={ this.state.currentTime }
                     toggle={ () => this.toggle() }
-                    reset={ () => this.reset() }
                     toggleText={ this.state.toggleText }
                     increaseTimer={ () => this.increaseTimer() }
                     decreaseTimer={ () => this.decreaseTimer() }
