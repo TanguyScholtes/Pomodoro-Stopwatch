@@ -4,7 +4,7 @@
   "description": "A Pomodoro timer using React, Node & Parcel - Part of Becode studentship",
   "scripts": {
     "start": "parcel public/index.html",
-    "build": "parcel build public/index.html --out-dir docs"
+    "build": "parcel build public/index.html --out-dir docs --public-url ./docs/"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
   },
   "homepage": "https://tanguyscholtes.github.io/Pomodoro-Stopwatch/",
   "dependencies": {
+    "gh-pages": "^2.0.1",
     "node-sass": "^4.11.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
