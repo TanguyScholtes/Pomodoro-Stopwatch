@@ -6,7 +6,7 @@
     document.onmousemove = handleMouseMove;
 
     function handleMouseMove ( event ) {
-        image.style.top = parseInt( event.clientY - 25 ) + 'px';
+        image.style.top = parseInt( event.clientY - 10 ) + 'px';
         image.style.left = parseInt( event.clientX + 10 ) + 'px';
     }
 } ) ();

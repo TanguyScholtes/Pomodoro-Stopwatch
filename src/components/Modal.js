@@ -15,6 +15,9 @@ class Modal extends React.Component {
                         <p className="mini-text">Want to take a short break ? <a href="" onClick={ ( event ) => this.props.break( event, 300 ) } >Start a new timer in 5 minutes.</a></p>
                         <p className="mini-text">A longer break in sight ? <a href="" onClick={ ( event ) => this.props.break( event, 1800 ) } >Back to work in 30 minutes.</a></p>
                     </div>
+                    <audio id="sound" className="sound" volume="1" autoPlay>
+                        <source id="source" src={ require( '../../public/timestop.mp3' ) } type="audio/mpeg" />
+                    </audio>
                 </div>
             </div>
         );

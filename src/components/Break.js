@@ -27,6 +27,9 @@ class Break extends React.Component {
                         <button className="modal-button" onClick={ () => this.props.reset() }>End break</button>
                     </div>
                 </div>
+                <audio id="sound" className="sound" volume="0.1" autoPlay loop>
+                    <source id="source" src={ require( '../../public/acceptance.mp3' ) } type="audio/mpeg" />
+                </audio>
             </div>
         );
     }

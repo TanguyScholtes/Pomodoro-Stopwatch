@@ -16,8 +16,8 @@ html{
     font-size: $font-size;
     color: $text-color;
     background-color: $background-color;
-    height: 100%;
-    overflow: hidden;
+    min-height: 100%;
+    overflow-x: hidden;
     background: url( '../public/corner_top_left.png' ) no-repeat scroll left top border-box,
         url( '../public/corner_top_right.png' ) no-repeat scroll right top border-box,
         url( '../public/corner_bottom_left.png' ) no-repeat scroll left bottom border-box,

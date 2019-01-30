@@ -24482,7 +24482,9 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"../src/components/Clock.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"elevator.mp3":[function(require,module,exports) {
+module.exports = "/elevator.174d5787.mp3";
+},{}],"../src/components/Clock.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24565,7 +24567,16 @@ function (_React$Component) {
         onClick: function onClick() {
           return _this.props.decreaseTimer();
         }
-      }, "-")));
+      }, "-")), React.createElement("audio", {
+        id: "sound",
+        className: "sound",
+        volume: "0.1",
+        loop: true
+      }, React.createElement("source", {
+        id: "source",
+        src: require('../../public/elevator.mp3'),
+        type: "audio/mpeg"
+      })));
     }
   }]);
 
@@ -24574,7 +24585,9 @@ function (_React$Component) {
 
 var _default = Clock;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"../src/components/Modal.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../../public/elevator.mp3":"elevator.mp3"}],"timestop.mp3":[function(require,module,exports) {
+module.exports = "/timestop.9c2967d4.mp3";
+},{}],"../src/components/Modal.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24657,7 +24670,16 @@ function (_React$Component) {
         onClick: function onClick(event) {
           return _this.props.break(event, 1800);
         }
-      }, "Back to work in 30 minutes.")))));
+      }, "Back to work in 30 minutes."))), React.createElement("audio", {
+        id: "sound",
+        className: "sound",
+        volume: "1",
+        autoPlay: true
+      }, React.createElement("source", {
+        id: "source",
+        src: require('../../public/timestop.mp3'),
+        type: "audio/mpeg"
+      }))));
     }
   }]);
 
@@ -24666,7 +24688,9 @@ function (_React$Component) {
 
 var _default = Modal;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"../src/components/Break.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../../public/timestop.mp3":"timestop.mp3"}],"acceptance.mp3":[function(require,module,exports) {
+module.exports = "/acceptance.98b76efa.mp3";
+},{}],"../src/components/Break.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24741,7 +24765,17 @@ function (_React$Component) {
         onClick: function onClick() {
           return _this.props.reset();
         }
-      }, "End break"))));
+      }, "End break"))), React.createElement("audio", {
+        id: "sound",
+        className: "sound",
+        volume: "0.1",
+        autoPlay: true,
+        loop: true
+      }, React.createElement("source", {
+        id: "source",
+        src: require('../../public/acceptance.mp3'),
+        type: "audio/mpeg"
+      })));
     }
   }]);
 
@@ -24750,7 +24784,7 @@ function (_React$Component) {
 
 var _default = Break;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"../src/components/App.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../../public/acceptance.mp3":"acceptance.mp3"}],"../src/components/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24870,10 +24904,12 @@ function (_React$Component) {
     key: "decreaseTimer",
     value: function decreaseTimer() {
       if (this.state.running === false) {
-        this.setState({
-          currentTime: this.state.currentTime - this.state.step,
-          lastTimer: this.state.currentTime - this.state.step
-        });
+        if (this.state.currentTime - this.state.step >= 60) {
+          this.setState({
+            currentTime: this.state.currentTime - this.state.step,
+            lastTimer: this.state.currentTime - this.state.step
+          });
+        }
       }
 
       return;
@@ -24885,6 +24921,7 @@ function (_React$Component) {
 
       if (this.state.running === true) {
         this.reset();
+        document.getElementById('sound').pause();
       } else {
         this.setState({
           running: true,
@@ -24893,6 +24930,7 @@ function (_React$Component) {
             return _this2.clockTick();
           }, 1000)
         });
+        document.getElementById('sound').play();
       }
 
       return;
@@ -25143,7 +25181,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59562" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59705" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

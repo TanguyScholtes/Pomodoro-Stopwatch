@@ -359,8 +359,8 @@ html {
   font-size: 18px;
   color: white;
   background-color: #323232;
-  height: 100%;
-  overflow: hidden;
+  min-height: 100%;
+  overflow-x: hidden;
   background: url("../public/corner_top_left.png") no-repeat scroll left top border-box, url("../public/corner_top_right.png") no-repeat scroll right top border-box, url("../public/corner_bottom_left.png") no-repeat scroll left bottom border-box, url("../public/corner_bottom_right.png") no-repeat scroll right bottom border-box, url("../public/top.png") repeat-x scroll right top border-box, url("../public/left.png") repeat-y scroll left top border-box, url("../public/right.png") repeat-y scroll right top border-box, url("../public/bottom.png") repeat-x scroll left bottom border-box, url("../public/floor.png") left top repeat padding-box;
 }
 

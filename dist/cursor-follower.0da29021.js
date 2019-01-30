@@ -112,7 +112,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   document.onmousemove = handleMouseMove;
 
   function handleMouseMove(event) {
-    image.style.top = parseInt(event.clientY - 25) + 'px';
+    image.style.top = parseInt(event.clientY - 10) + 'px';
     image.style.left = parseInt(event.clientX + 10) + 'px';
   }
 })();
@@ -143,7 +143,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59562" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59705" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

@@ -62,10 +62,12 @@ class App extends React.Component {
 
     decreaseTimer () {
         if ( this.state.running === false ) {
-            this.setState( {
-                currentTime: this.state.currentTime - this.state.step,
-                lastTimer: this.state.currentTime - this.state.step
-            } );
+            if ( this.state.currentTime - this.state.step >= 60 ) {
+                this.setState( {
+                    currentTime: this.state.currentTime - this.state.step,
+                    lastTimer: this.state.currentTime - this.state.step
+                } );
+            }
         }
         return;
     }
@@ -73,6 +75,7 @@ class App extends React.Component {
     toggle () {
         if ( this.state.running === true ) {
             this.reset();
+            document.getElementById( 'sound' ).pause();
         } else {
             this.setState( {
                 running: true,
@@ -82,6 +85,7 @@ class App extends React.Component {
                     1000
                 )
             } );
+            document.getElementById( 'sound' ).play();
         }
         return;
     }

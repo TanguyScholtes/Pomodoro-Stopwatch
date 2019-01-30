@@ -26,6 +26,9 @@ class Clock extends React.Component {
                     <button className="clock-toggle" onClick={ () => this.props.toggle() }>{ this.props.toggleText }</button>
                     <button className={ this.props.running ? 'disabled clock-modifier' : 'clock-modifier' } onClick={ () => this.props.decreaseTimer() }>-</button>
                 </div>
+                <audio id="sound" className="sound" volume="0.1" loop>
+                    <source id="source" src={ require( '../../public/elevator.mp3' ) } type="audio/mpeg" />
+                </audio>
             </div>
         );
     }
