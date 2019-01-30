@@ -8,7 +8,7 @@ class App extends React.Component {
         super( props );
         this.state = {
             timerclock: null, // timer interval
-            currentTime: 5, // Timer in seconds
+            currentTime: 1200, // Timer in seconds
             lastTimer: 1200, // Last timer entered by user, in seconds
             running: false, // Is the clock ticking or paused
             step: 60, // Step to increase/decrease timer, in seconds
