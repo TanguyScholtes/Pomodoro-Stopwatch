@@ -1,5 +1,6 @@
 const React = require( 'react' );
 
+/*
 class Footer extends React.Component {
     render () {
         return(
@@ -9,6 +10,16 @@ class Footer extends React.Component {
             </div>
         );
     }
+}
+*/
+
+function Footer ( props ) {
+    return(
+        <div className="footer-container">
+            <img className="footer-image" src={ require( '../../public/Shopkeeper.png' ) } />
+            <p className="footer-text">Made by <a href="http://tanguyscholtes.be">Tanguy Scholtes</a>, 2019</p>
+        </div>
+    );
 }
 
 export default Footer;

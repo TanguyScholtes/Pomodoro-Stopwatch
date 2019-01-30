@@ -24524,22 +24524,6 @@ function (_React$Component) {
   }
 
   _createClass(Clock, [{
-    key: "secondsToTimer",
-    value: function secondsToTimer(seconds) {
-      var min = parseInt(Math.floor(seconds % 3600 / 60));
-      var sec = parseInt(Math.floor(seconds % 3600 % 60));
-
-      if (sec <= 9) {
-        sec = '0' + sec;
-      }
-
-      if (min <= 9) {
-        min = '0' + min;
-      }
-
-      return min + ' : ' + sec;
-    }
-  }, {
     key: "render",
     value: function render() {
       var _this = this;
@@ -24550,7 +24534,7 @@ function (_React$Component) {
         className: "clock"
       }, React.createElement("p", {
         className: "clock-timer"
-      }, this.secondsToTimer(this.props.currentTime))), React.createElement("div", {
+      }, this.props.secondsToTimer(this.props.currentTime))), React.createElement("div", {
         className: "clock-interface"
       }, React.createElement("button", {
         className: this.props.running ? 'disabled clock-modifier' : 'clock-modifier',
@@ -24730,22 +24714,6 @@ function (_React$Component) {
   }
 
   _createClass(Break, [{
-    key: "secondsToTimer",
-    value: function secondsToTimer(seconds) {
-      var min = parseInt(Math.floor(seconds % 3600 / 60));
-      var sec = parseInt(Math.floor(seconds % 3600 % 60));
-
-      if (sec <= 9) {
-        sec = '0' + sec;
-      }
-
-      if (min <= 9) {
-        min = '0' + min;
-      }
-
-      return min + ' : ' + sec;
-    }
-  }, {
     key: "render",
     value: function render() {
       var _this = this;
@@ -24758,7 +24726,7 @@ function (_React$Component) {
         className: "clock"
       }, React.createElement("p", {
         className: "clock-timer"
-      }, this.secondsToTimer(this.props.waitingTime))), React.createElement("div", {
+      }, this.props.secondsToTimer(this.props.waitingTime))), React.createElement("div", {
         className: "modal-interface"
       }, React.createElement("button", {
         className: "modal-button",
@@ -24834,7 +24802,7 @@ function (_React$Component) {
     _this.state = {
       timerclock: null,
       // timer interval
-      currentTime: 1200,
+      currentTime: 5,
       // Timer in seconds
       lastTimer: 1200,
       // Last timer entered by user, in seconds
@@ -24951,10 +24919,13 @@ function (_React$Component) {
     key: "dismiss",
     value: function dismiss() {
       this.setState({
+        running: false,
+        toggleText: 'Start',
         currentTime: 1200,
         lastTimer: 1200,
         waitingTime: 0
       });
+      clearInterval(this.state.timerclock);
       return;
     }
   }, {
@@ -24972,12 +24943,31 @@ function (_React$Component) {
       return;
     }
   }, {
+    key: "secondsToTimer",
+    value: function secondsToTimer(seconds) {
+      var min = parseInt(Math.floor(seconds % 3600 / 60));
+      var sec = parseInt(Math.floor(seconds % 3600 % 60));
+
+      if (sec <= 9) {
+        sec = '0' + sec;
+      }
+
+      if (min <= 9) {
+        min = '0' + min;
+      }
+
+      return min + ' : ' + sec;
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this4 = this;
 
       if (this.state.currentTime != 0 && this.state.waitingTime === 0) {
         return React.createElement(_Clock.default, {
+          secondsToTimer: function secondsToTimer(seconds) {
+            return _this4.secondsToTimer(seconds);
+          },
           running: this.state.running,
           currentTime: this.state.currentTime,
           toggle: function toggle() {
@@ -24993,6 +24983,9 @@ function (_React$Component) {
         });
       } else if (this.state.waitingTime != 0) {
         return React.createElement(_Break.default, {
+          secondsToTimer: function secondsToTimer(seconds) {
+            return _this4.secondsToTimer(seconds);
+          },
           waitingTime: this.state.waitingTime,
           reset: function reset() {
             return _this4.reset();
@@ -25027,50 +25020,27 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 var React = require('react');
-
-var Branding =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(Branding, _React$Component);
-
-  function Branding() {
-    _classCallCheck(this, Branding);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(Branding).apply(this, arguments));
-  }
-
-  _createClass(Branding, [{
-    key: "render",
-    value: function render() {
-      return React.createElement("div", {
-        className: "branding"
-      }, React.createElement("h1", {
-        className: "site-title"
-      }, "Rotten Stopwatch"));
+/*
+class Branding extends React.Component {
+    render () {
+        return(
+            <div className="branding">
+                <h1 className="site-title">Rotten Stopwatch</h1>
+            </div>
+        );
     }
-  }]);
+}
+*/
 
-  return Branding;
-}(React.Component);
+
+function Branding(props) {
+  return React.createElement("div", {
+    className: "branding"
+  }, React.createElement("h1", {
+    className: "site-title"
+  }, "Rotten Stopwatch"));
+}
 
 var _default = Branding;
 exports.default = _default;
@@ -25084,55 +25054,33 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 var React = require('react');
-
-var Footer =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(Footer, _React$Component);
-
-  function Footer() {
-    _classCallCheck(this, Footer);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(Footer).apply(this, arguments));
-  }
-
-  _createClass(Footer, [{
-    key: "render",
-    value: function render() {
-      return React.createElement("div", {
-        className: "footer-container"
-      }, React.createElement("img", {
-        className: "footer-image",
-        src: require('../../public/Shopkeeper.png')
-      }), React.createElement("p", {
-        className: "footer-text"
-      }, "Made by ", React.createElement("a", {
-        href: "http://tanguyscholtes.be"
-      }, "Tanguy Scholtes"), ", 2019"));
+/*
+class Footer extends React.Component {
+    render () {
+        return(
+            <div className="footer-container">
+                <img className="footer-image" src={ require( '../../public/Shopkeeper.png' ) } />
+                <p className="footer-text">Made by <a href="http://tanguyscholtes.be">Tanguy Scholtes</a>, 2019</p>
+            </div>
+        );
     }
-  }]);
+}
+*/
 
-  return Footer;
-}(React.Component);
+
+function Footer(props) {
+  return React.createElement("div", {
+    className: "footer-container"
+  }, React.createElement("img", {
+    className: "footer-image",
+    src: require('../../public/Shopkeeper.png')
+  }), React.createElement("p", {
+    className: "footer-text"
+  }, "Made by ", React.createElement("a", {
+    href: "http://tanguyscholtes.be"
+  }, "Tanguy Scholtes"), ", 2019"));
+}
 
 var _default = Footer;
 exports.default = _default;
@@ -25181,7 +25129,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59705" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60619" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

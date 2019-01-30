@@ -1,5 +1,6 @@
 const React = require( 'react' );
 
+/*
 class Branding extends React.Component {
     render () {
         return(
@@ -8,6 +9,15 @@ class Branding extends React.Component {
             </div>
         );
     }
+}
+*/
+
+function Branding ( props ) {
+    return (
+        <div className="branding">
+            <h1 className="site-title">Rotten Stopwatch</h1>
+        </div>
+    );
 }
 
 export default Branding;
