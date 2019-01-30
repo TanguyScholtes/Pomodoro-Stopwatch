@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/TanguyScholtes/Pomodoro-Stopwatch/issues"
   },
-  "homepage": "https://github.com/TanguyScholtes/Pomodoro-Stopwatch#readme",
+  "homepage": "https://tanguyscholtes.github.io/Pomodoro-Stopwatch/",
   "dependencies": {
     "node-sass": "^4.11.0",
     "react": "^16.7.0",
