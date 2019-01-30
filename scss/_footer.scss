@@ -11,3 +11,12 @@
 .footer-image{
     margin-right: 1rem;
 }
+
+.footer-text{
+    a{
+        color: $footer-link;
+        &:hover{
+            color: $footer-link-hover;
+        }
+    }
+}
