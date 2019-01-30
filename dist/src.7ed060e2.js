@@ -24482,79 +24482,7 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
-
-  return bundleURL;
-}
-
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
-
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
-
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
-  };
-
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
-    }
-
-    cssTimeout = null;
-  }, 50);
-}
-
-module.exports = reloadCSS;
-},{"./bundle-url":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../scss/styles.scss":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../src/components/Clock.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"../src/components/Clock.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24620,23 +24548,24 @@ function (_React$Component) {
         className: "clock"
       }, React.createElement("p", {
         className: "clock-timer"
-      }, this.secondsToTimer(this.props.currentTime)), React.createElement("button", {
-        className: "clock-modifier",
+      }, this.secondsToTimer(this.props.currentTime))), React.createElement("div", {
+        className: "clock-interface"
+      }, React.createElement("button", {
+        className: this.props.running ? 'disabled clock-modifier' : 'clock-modifier',
         onClick: function onClick() {
           return _this.props.increaseTimer();
         }
       }, "+"), React.createElement("button", {
-        className: "clock-modifier",
-        onClick: function onClick() {
-          return _this.props.decreaseTimer();
-        }
-      }, "-")), React.createElement("div", {
-        className: "clock-interface"
-      }, React.createElement("button", {
+        className: "clock-toggle",
         onClick: function onClick() {
           return _this.props.toggle();
         }
-      }, this.props.toggleText)));
+      }, this.props.toggleText), React.createElement("button", {
+        className: this.props.running ? 'disabled clock-modifier' : 'clock-modifier',
+        onClick: function onClick() {
+          return _this.props.decreaseTimer();
+        }
+      }, "-")));
     }
   }]);
 
@@ -24696,31 +24625,39 @@ function (_React$Component) {
       }, React.createElement("p", null, "Time's up ! Take a break : leave your seat and go get some fresh air."), React.createElement("div", {
         className: "modal-interface"
       }, React.createElement("button", {
+        className: "modal-button",
         onClick: function onClick() {
           return _this.props.reset();
         }
       }, "Restart"), React.createElement("button", {
+        className: "modal-button",
         onClick: function onClick() {
           return _this.props.dismiss();
         }
       }, "Dismiss")), React.createElement("div", {
         className: "modal-interface"
-      }, React.createElement("p", null, "In a hurry ? ", React.createElement("a", {
+      }, React.createElement("p", {
+        className: "mini-text"
+      }, "In a hurry ? ", React.createElement("a", {
         href: "",
         onClick: function onClick(event) {
           return _this.props.break(event, 10);
         }
-      }, "Take a deep breath and start again in 10 seconds.")), React.createElement("p", null, "Want to take a short break ? ", React.createElement("a", {
+      }, "Take a deep breath and start again in 10 seconds.")), React.createElement("p", {
+        className: "mini-text"
+      }, "Want to take a short break ? ", React.createElement("a", {
         href: "",
         onClick: function onClick(event) {
           return _this.props.break(event, 300);
         }
-      }, "Click here to start a new timer in 5 minutes.")), React.createElement("p", null, "A longer break in sight ? ", React.createElement("a", {
+      }, "Start a new timer in 5 minutes.")), React.createElement("p", {
+        className: "mini-text"
+      }, "A longer break in sight ? ", React.createElement("a", {
         href: "",
         onClick: function onClick(event) {
           return _this.props.break(event, 1800);
         }
-      }, "Click here to start a new timer in 30 minutes.")))));
+      }, "Back to work in 30 minutes.")))));
     }
   }]);
 
@@ -24792,16 +24729,19 @@ function (_React$Component) {
       return React.createElement("div", {
         className: "container"
       }, React.createElement("div", {
+        className: "modal"
+      }, React.createElement("p", null, "Enjoy your break. A new timer will automatically start in..."), React.createElement("div", {
         className: "clock"
-      }, React.createElement("p", null, "Enjoy your break. A new timer will automatically start in..."), React.createElement("p", {
+      }, React.createElement("p", {
         className: "clock-timer"
       }, this.secondsToTimer(this.props.waitingTime))), React.createElement("div", {
-        className: "clock-interface"
+        className: "modal-interface"
       }, React.createElement("button", {
+        className: "modal-button",
         onClick: function onClick() {
           return _this.props.reset();
         }
-      }, "End break")));
+      }, "End break"))));
     }
   }]);
 
@@ -24860,9 +24800,9 @@ function (_React$Component) {
     _this.state = {
       timerclock: null,
       // timer interval
-      currentTime: 600,
+      currentTime: 1200,
       // Timer in seconds
-      lastTimer: 600,
+      lastTimer: 1200,
       // Last timer entered by user, in seconds
       running: false,
       // Is the clock ticking or paused
@@ -24905,6 +24845,7 @@ function (_React$Component) {
         });
         clearInterval(this.state.waitingclock);
         this.reset();
+        this.toggle();
       } else {
         this.setState({
           waitingTime: this.state.waitingTime - 1
@@ -24972,8 +24913,8 @@ function (_React$Component) {
     key: "dismiss",
     value: function dismiss() {
       this.setState({
-        currentTime: 600,
-        lastTimer: 600,
+        currentTime: 1200,
+        lastTimer: 1200,
         waitingTime: 0
       });
       return;
@@ -24999,6 +24940,7 @@ function (_React$Component) {
 
       if (this.state.currentTime != 0 && this.state.waitingTime === 0) {
         return React.createElement(_Clock.default, {
+          running: this.state.running,
           currentTime: this.state.currentTime,
           toggle: function toggle() {
             return _this4.toggle();
@@ -25085,7 +25027,7 @@ function (_React$Component) {
         className: "branding"
       }, React.createElement("h1", {
         className: "site-title"
-      }, "Stopwatch"));
+      }, "Rotten Stopwatch"));
     }
   }]);
 
@@ -25094,14 +25036,76 @@ function (_React$Component) {
 
 var _default = Branding;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"../src/index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js"}],"Shopkeeper.png":[function(require,module,exports) {
+module.exports = "/Shopkeeper.cec2cafb.png";
+},{}],"../src/components/Footer.js":[function(require,module,exports) {
 "use strict";
 
-require("../scss/styles.scss");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var React = require('react');
+
+var Footer =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Footer, _React$Component);
+
+  function Footer() {
+    _classCallCheck(this, Footer);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Footer).apply(this, arguments));
+  }
+
+  _createClass(Footer, [{
+    key: "render",
+    value: function render() {
+      return React.createElement("div", {
+        className: "footer-container"
+      }, React.createElement("img", {
+        className: "footer-image",
+        src: require('../../public/Shopkeeper.png')
+      }), React.createElement("p", {
+        className: "footer-text"
+      }, "Made by ", React.createElement("a", {
+        href: "http://tanguyscholtes.be"
+      }, "Tanguy Scholtes"), ", 2019"));
+    }
+  }]);
+
+  return Footer;
+}(React.Component);
+
+var _default = Footer;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","../../public/Shopkeeper.png":"Shopkeeper.png"}],"../src/index.js":[function(require,module,exports) {
+"use strict";
 
 var _App = _interopRequireDefault(require("./components/App.js"));
 
 var _Branding = _interopRequireDefault(require("./components/Branding.js"));
+
+var _Footer = _interopRequireDefault(require("./components/Footer.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25111,7 +25115,8 @@ var ReactDOM = require('react-dom');
 
 ReactDOM.render(React.createElement(_Branding.default, null), document.getElementById('brand'));
 ReactDOM.render(React.createElement(_App.default, null), document.getElementById('app'));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","../scss/styles.scss":"../scss/styles.scss","./components/App.js":"../src/components/App.js","./components/Branding.js":"../src/components/Branding.js"}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+ReactDOM.render(React.createElement(_Footer.default, null), document.getElementById('footer'));
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./components/App.js":"../src/components/App.js","./components/Branding.js":"../src/components/Branding.js","./components/Footer.js":"../src/components/Footer.js"}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -25138,7 +25143,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56257" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59427" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

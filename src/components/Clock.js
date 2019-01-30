@@ -20,11 +20,11 @@ class Clock extends React.Component {
             <div className="container">
                 <div className="clock">
                     <p className="clock-timer">{ this.secondsToTimer( this.props.currentTime ) }</p>
-                    <button className="clock-modifier" onClick={ () => this.props.increaseTimer() }>+</button>
-                    <button className="clock-modifier" onClick={ () => this.props.decreaseTimer() }>-</button>
                 </div>
                 <div className="clock-interface">
-                    <button onClick={ () => this.props.toggle() }>{ this.props.toggleText }</button>
+                    <button className={ this.props.running ? 'disabled clock-modifier' : 'clock-modifier' } onClick={ () => this.props.increaseTimer() }>+</button>
+                    <button className="clock-toggle" onClick={ () => this.props.toggle() }>{ this.props.toggleText }</button>
+                    <button className={ this.props.running ? 'disabled clock-modifier' : 'clock-modifier' } onClick={ () => this.props.decreaseTimer() }>-</button>
                 </div>
             </div>
         );

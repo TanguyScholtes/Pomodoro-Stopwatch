@@ -1,9 +1,9 @@
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom' );
-import '../scss/styles.scss';
 
 import App from './components/App.js';
 import Branding from './components/Branding.js';
+import Footer from './components/Footer.js';
 
 ReactDOM.render(
     <Branding />,
@@ -13,4 +13,9 @@ ReactDOM.render(
 ReactDOM.render(
     <App />,
     document.getElementById('app')
+);
+
+ReactDOM.render(
+    <Footer />,
+    document.getElementById('footer')
 );

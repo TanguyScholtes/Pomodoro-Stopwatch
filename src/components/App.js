@@ -8,8 +8,8 @@ class App extends React.Component {
         super( props );
         this.state = {
             timerclock: null, // timer interval
-            currentTime: 600, // Timer in seconds
-            lastTimer: 600, // Last timer entered by user, in seconds
+            currentTime: 1200, // Timer in seconds
+            lastTimer: 1200, // Last timer entered by user, in seconds
             running: false, // Is the clock ticking or paused
             step: 60, // Step to increase/decrease timer, in seconds
             toggleText: 'Start', // Text to display on toggle button
@@ -41,6 +41,7 @@ class App extends React.Component {
             } );
             clearInterval( this.state.waitingclock );
             this.reset();
+            this.toggle();
         } else {
             this.setState( {
                 waitingTime: this.state.waitingTime - 1
@@ -98,8 +99,8 @@ class App extends React.Component {
 
     dismiss () {
         this.setState( {
-            currentTime: 600,
-            lastTimer: 600,
+            currentTime: 1200,
+            lastTimer: 1200,
             waitingTime: 0
         } );
         return;
@@ -121,6 +122,7 @@ class App extends React.Component {
         if ( this.state.currentTime != 0 && this.state.waitingTime === 0 ) {
             return (
                 <Clock
+                    running={ this.state.running }
                     currentTime={ this.state.currentTime }
                     toggle={ () => this.toggle() }
                     toggleText={ this.state.toggleText }

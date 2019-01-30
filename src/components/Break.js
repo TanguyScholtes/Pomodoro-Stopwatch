@@ -18,12 +18,14 @@ class Break extends React.Component {
     render () {
         return (
             <div className="container">
-                <div className="clock">
+                <div className="modal">
                     <p>Enjoy your break. A new timer will automatically start in...</p>
-                    <p className="clock-timer">{ this.secondsToTimer( this.props.waitingTime ) }</p>
-                </div>
-                <div className="clock-interface">
-                    <button onClick={ () => this.props.reset() }>End break</button>
+                    <div className="clock">
+                        <p className="clock-timer">{ this.secondsToTimer( this.props.waitingTime ) }</p>
+                    </div>
+                    <div className="modal-interface">
+                        <button className="modal-button" onClick={ () => this.props.reset() }>End break</button>
+                    </div>
                 </div>
             </div>
         );
